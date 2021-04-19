@@ -5,10 +5,10 @@
 	<link rel="stylesheet" href="../assets/style.css"></link>
 </head>
 <body>
-	<?php require("../views/header.php"); ?>
+	<?php require("./views/header.php"); ?>
 	<div class="b-body">
         <h4 class="title" >Update College</h4>
-		<form action="/controllers/CollegeController.php">
+		<form action="<?=baseUrl('/colleges/update')?>">
 			<input type="hidden" name="id" value="<?= $row['id']; ?>">
 			<label>College Name
 				<input type="text" name="name" value="<?= $row['college_name']; ?>">

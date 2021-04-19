@@ -1,5 +1,5 @@
 <?php
-require_once("../models/course/CourseModel.php");
+require_once("./models/course/CourseModel.php");
 
 class CourseController{
 
@@ -9,11 +9,11 @@ class CourseController{
 
 	public function list(){
 		$rows = $this->courseModel->retreiveAll();
-		require("../views/course/list_course.php");
+		require("./views/course/list_course.php");
 	}
 
 	public function createForm(){
-		require("../views/course/create_form.php");
+		require("./views/course/create_form.php");
 	}
 
 	public function create(){
@@ -22,13 +22,14 @@ class CourseController{
 		$title = $_GET['title'];
 
 		$this->courseModel->create($code, $duration, $title);
-		header('Location:/controllers/CourseController.php?action=list',302);
+		//header('Location:/web-php/controllers/CourseController.php?action=list',302);
+		redirect('/courses');
 	}
 
 	public function updateForm(){
 		$code = $_GET['code'];
 		$row = $this->courseModel->retreiveAllWhere($code);
-		require("../views/course/update_form.php");
+		require("./views/course/update_form.php");
 	}
 
 	public function update(){
@@ -37,18 +38,18 @@ class CourseController{
 		$code = $_GET['code'];
 
 		$this->courseModel->update($duration, $title, $code);
-		header('Location:/controllers/CourseController.php?action=list', 302);
+		redirect('/courses');
 	}
 
 	public function delete(){
 		$code = $_GET["code"];
 		$this->courseModel->deleteWhere($code);
-		header('Location:/controllers/CourseController.php?action=list',302);
+		redirect('/courses');
 	}
 }
 
-$action = $_GET["action"];
+//$action = $_GET["action"];
 //echo $action;
 
-$courseCtrl = new CourseController();
-$courseCtrl->{$action}();
+// $courseCtrl = new CourseController();
+// $courseCtrl->{$action}();

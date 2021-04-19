@@ -2,13 +2,13 @@
 <html>
 <head>
 	<title>Course List</title>
-	<link rel="stylesheet" type="text/css" href="../assets/style.css">
+	<link rel="stylesheet" type="text/css" href="<?=baseUrl('/assets/style.css')?>">
 </head>
 <body>
-	<?php require("../views/header.php"); ?>
+	<?php require("./views/header.php"); ?>
 	<div class="b-body">
 		<h4 class="title">Course List</h4>
-		<a href="/controllers/CourseController.php?action=createForm">Create Course</a>
+		<a href="<?=baseUrl('/courses/createForm')?>">Create Course</a>
 		<table class="table" width="100%"> 
 			<tr>
 				<th> Code </th>
@@ -23,9 +23,9 @@
 				<td><?= $row['title']; ?> </td>
 				<td>
 					<!-- <a href="/controllers/CourseController.php?action=updateForm&code=<?= $row['code']; ?>">Update</a> -->
-					<a href="/controllers/CourseController.php?action=updateForm&code=<?php echo $row['code']; ?>" >Update</a> &nbsp;
+					<a href="<?=baseUrl('/courses/updateForm')?>?code=<?= $row['code']; ?>" >Update</a> &nbsp;
 
-                    <a href="/controllers/CourseController.php?action=delete&code=<?php echo $row['code']; ?>" >Delete</a>
+                    <a href="<?=baseUrl('/courses/delete')?>?code=<?= $row['code']; ?>" >Delete</a>
 				</td>
 			</tr>
 			<?php } ?>
