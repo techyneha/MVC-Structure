@@ -16,4 +16,8 @@ class LoginController {
 
 		return $isValidUser;
 	}
+
+	public function logout(){
+		session_destroy();
+	}
 }

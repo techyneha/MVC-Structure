@@ -12,7 +12,7 @@ class LoginModel {
 
 		$stmt = $this->conn->query("select * from login where username='".$username."' and password='".$password."'");
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		return $result ? true : false;
+		
+		return $result ? $result["username"] : false;
 	}
 }

@@ -4,6 +4,9 @@ $routes = array();
 $routes["test"]= "TestController/test";
 $routes["test/do"]= "TestController/doSomething";
 
+//logout
+$routes["logout"] = "LoginController/logout";
+
 // Home
 $routes["base"] = "HomeController/index";
 

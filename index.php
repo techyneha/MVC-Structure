@@ -20,13 +20,24 @@ if($mappedString  === null){
 	require('./views/not_found.php');
 	die();
 }
+//tracking request
+session_start();
+//echo session_id();
+$username = $_SESSION["USER_NAME"];
+//echo "username: $username <br>";
 
-$loginController = new LoginController();
-$isValidUser = $loginController->authenticate();
-if(!$isValidUser) {
-	require("./views/login_failure.php");
-	die();
+if($username === null) {
+	$loginController = new LoginController();
+	$validUser = $loginController->authenticate();
+	//if credential are not valid
+	if(!$validUser) {
+		require("./views/login_failure.php");
+		die();
+	}else {
+		$_SESSION["USER_NAME"] = $validUser;
+	}
 }
+
 
 //echo $mappedString;
 $parts = explode("/", $mappedString);
