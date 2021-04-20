@@ -2,10 +2,10 @@
 <html>
 <head>
 	<title>Home Page</title>
-	<link rel="stylesheet" type="text/css" href="assets/style.css">
+	<link rel="stylesheet" type="text/css" href="<?=baseUrl('/assets/style.css')?>">
 </head>
 <body>
-	<?php require("views/header.php"); ?>
+	<?php require("./views/header.php"); ?>
     <div class="b-body">
         <h4 class="title" >Home Page Home Page Home Page Home Page</h4>
         <p>

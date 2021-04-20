@@ -22,7 +22,6 @@
 				<td><?= $row['duration']; ?></td>
 				<td><?= $row['title']; ?> </td>
 				<td>
-					<!-- <a href="/controllers/CourseController.php?action=updateForm&code=<?= $row['code']; ?>">Update</a> -->
 					<a href="<?=baseUrl('/courses/updateForm')?>?code=<?= $row['code']; ?>" >Update</a> &nbsp;
 
                     <a href="<?=baseUrl('/courses/delete')?>?code=<?= $row['code']; ?>" >Delete</a>
