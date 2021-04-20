@@ -27,8 +27,7 @@
 </head>
 <body>
 	<div>
-		<h1 style="color: tomato;text-align: center;" >404 Page Not Found</h1>
-		<p style="color: tomato;text-align: center;"><a href="<?= baseUrl('/')?>">Back to Home Page</a></p>
+		<h1 style="color: tomato;text-align: center;" >You are not Authorised to view this page</h1>
 	</div>
 </body>
 </html>

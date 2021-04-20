@@ -3,6 +3,7 @@ require("./controllers/TestController.php");
 require("./controllers/CollegeController.php");
 require("./controllers/CourseController.php");
 require("./controllers/HomeController.php");
+require("./controllers/LoginController.php");
 require("./routes.php");
 require("./lib/utils.php");
 
@@ -19,6 +20,14 @@ if($mappedString  === null){
 	require('./views/not_found.php');
 	die();
 }
+
+$loginController = new LoginController();
+$isValidUser = $loginController->authenticate();
+if(!$isValidUser) {
+	require("./views/login_failure.php");
+	die();
+}
+
 //echo $mappedString;
 $parts = explode("/", $mappedString);
 $className = $parts[0];
