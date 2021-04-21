@@ -7,42 +7,71 @@ require("./controllers/LoginController.php");
 require("./routes.php");
 require("./lib/utils.php");
 
-$url = $_GET["route"];
-//echo $url."<br>";
+class FrontController {
 
-if($url === "") {
-	//echo "Inside Empty Url"."<br>";
-	$url = "base";
-}
-//echo "Modified Url".$url."<br>"	;
-$mappedString = $routes[$url];
-if($mappedString  === null){
-	require('./views/not_found.php');
-	die();
-}
-//tracking request
-session_start();
-//echo session_id();
-$username = $_SESSION["USER_NAME"];
-//echo "username: $username <br>";
+	private const LOGIN_KEY = "LOGIN_KEY";
 
-if($username === null) {
-	$loginController = new LoginController();
-	$validUser = $loginController->authenticate();
-	//if credential are not valid
-	if(!$validUser) {
-		require("./views/login_failure.php");
-		die();
-	}else {
-		$_SESSION["USER_NAME"] = $validUser;
+	public function processRoute() {
+		global $routes;
+		$url = $_GET["route"];
+
+		$resourcesRoute = $this->mappedRoute($routes,$url);
+		//if no mapping is found
+		if(!$resourcesRoute) {
+			require("./views/not_found.php");
+			die();
+		}
+
+		$loggedInUser = $this->loggedInUser();
+		// if loggedIn user is null
+		if(!$loggedInUser) {
+			$validUser = $this->authenticateRequest();
+			//not a valid user
+			if(!$validUser) {
+				$queryString = $_SERVER["QUERY_STRING"];
+				$qString = str_replace("route=", "", $queryString);
+				require("./views/login_failure.php");
+				die();
+			}
+
+			$this->updateLoggedInUser($validUser);
+		}
+
+		$this->executeRoute($resourcesRoute);
+
+	}
+
+	private function mappedRoute($routes, $url){
+		$url = ($url === "") ? "base" : $url;
+		$mappedString = $routes[$url];
+
+		return ($mappedString ? $mappedString : null);
+	}
+
+	private function loggedInUser(){
+		session_start();
+		return isset($_SESSION[self::LOGIN_KEY]) ? true : false;
+	}
+
+	private function authenticateRequest(){
+		$loginController = new LoginController();
+		$validUser = $loginController->authenticate();
+		return $validUser ? true : false;
+	}
+
+	private function updateLoggedInUser($loginValue){
+		$_SESSION[self::LOGIN_KEY] = $loginValue;
+	}
+
+	private function executeRoute($resourcesRoute){
+		$parts = explode("/", $resourcesRoute);
+		$className = $parts[0];
+		$methodName = $parts[1];
+		$ctrlObj = new $className();
+		$ctrlObj->{$methodName}();
 	}
 }
 
+$frontController = new FrontController();
+$frontController->processRoute();
 
-//echo $mappedString;
-$parts = explode("/", $mappedString);
-$className = $parts[0];
-$methodName = $parts[1];
-
-$ctrlObj = new $className();
-$ctrlObj->{$methodName}();

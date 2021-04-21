@@ -28,6 +28,23 @@
 <body>
 	<div>
 		<h1 style="color: tomato;text-align: center;" >You are not Authorised to view this page</h1>
+
+		<form action="<?= baseUrl("/".$qString) ?>">
+
+			<div class="=login-containerboard">
+				
+				<label>
+					<input type="text" name="username" placeholder="Username">
+				</label>
+
+				<label>
+					<input type="password" name="password" placeholder="Password">
+				</label>
+
+				<button>Login</button>
+			</div>
+
+		</form>
 	</div>
 </body>
 </html>
